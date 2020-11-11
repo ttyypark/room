@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?><!--Data Binding-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.databinding.ObservableArrayList" />
+
+        <import type="com.sample.room.UserProfile" />
+
+        <variable
+            name="model"
+            type="com.sample.room.UserProfileViewModel" />
+
+        <variable
+            name="room"
+            type="com.sample.room.MainActivity" />
+
+        <variable
+            name="userProfiles"
+            type="ObservableArrayList&lt;UserProfile&gt;" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".MainActivity">
+        <!--        android:gravity="center"-->
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="이름"
+            android:text="@={model.mUserProfile.name}" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="전화번호"
+            android:text="@={model.mUserProfile.phone}" />
+
+        <!--        android:text="@={model.mUserProfile.phone}" // 양방향 binding-->
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="주소"
+            android:text="@={model.mUserProfile.address}" />
+
+        <EditText
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="사진번호(1-6)"
+            android:text="@={model.mUserProfile.photo}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추가" />
+<!--                android:onClick="@{() -> model.insert(model.mUserProfile)}"-->
+<!--            &lt;!&ndash;            android:onClick="addUserProfile"/>     MainActivity의 method 대신에-->
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="삭제" />
+<!--                android:onClick="@{() -> model.delete(model.mUserProfile)}"-->
+
+            <Button
+                android:id="@+id/update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="수정" />
+<!--                android:onClick="@{() -> model.update(model.mUserProfile)}"-->
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            bind:item="@{userProfiles}"
+            tools:listitem="@layout/user_profile">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <!--            app:layoutManager="LinearLayoutManager"-->
+        <!--            app:binditem="@{userProfiles}">-->
+        <!--            app:listData="@{model.userProfileList}"-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/user_list"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="1" />-->
+        <!--&lt;!&ndash;            android:text="@{model.userProfileList.toString()}"&ndash;&gt;-->
+
+    </LinearLayout>
+</layout>
